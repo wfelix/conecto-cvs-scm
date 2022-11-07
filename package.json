@@ -1,0 +1,388 @@
+{
+  "name": "cnc-cvs",
+	"displayName": "CVS",
+	"description": "Integrates CVS support into VS Code's SCM interface by Conecto",
+	"version": "1.0.0",
+	"engines": {
+		"vscode": "^1.69.0"
+	},
+	"categories": [
+		"Other",
+		"SCM Providers"
+	],
+	"keywords": [
+        "multi-root ready",
+        "scm",
+        "cvs"
+    ],
+	"publisher": "wfelix",
+	"license": "MIT",
+	"icon": "resources/icons/cnc-cvs.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wfelix/conecto-cnc-cvs"
+	  },
+	"activationEvents": [
+        "onCommand:cnc-cvs.refresh",
+		"workspaceContains:CVS/Root"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "CVS",
+			"properties": {
+				"explorer.excludeFolders": {
+					"markdownDescription": "To exclude CVS folders from the File Explorer, add glob pattern **/CVS to '#files.exclude#'.",
+					"scope": "window"
+				},
+				"explorer.excludeFiles": {
+					"markdownDescription": "To exclude CVS revision files (e.g. .#file.revision) from the File Explorer, add glob pattern **/.#* to `#files.exclude#`.",
+					"scope": "window"
+				},
+				"update.ignoreFolders": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"markdownDescription": "Folders discovered in the repository that will be ignored by `cvs update`. *Folder path is relative to the workspace folder (e.g. src/test)*",
+					"scope": "window"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "cnc-cvs.refresh",
+				"title": "Refresh Repository",
+				"icon": "$(refresh)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.cnc",
+				"title": "Commit Changes",
+				"icon": "$(refresh)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.commit",
+				"title": "Commit Changes",
+				"icon": "$(check)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.discard",
+				"title": "Discard Changes",
+				"icon": "$(discard)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.add",
+				"title": "Add",
+				"icon": "$(add)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.add-folder",
+				"title": "Add Folder to Repo",
+				"icon": "$(cloud-upload)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.stage",
+				"title": "Stage Changes",
+				"icon": "$(add)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.unstage",
+				"title": "Unstage Changes",
+				"icon": "$(remove)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.stage-all",
+				"title": "Stage all Changes",
+				"icon": "$(add)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.unstage-all",
+				"title": "Unstage all Changes",
+				"icon": "$(remove)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.delete",
+				"title": "Delete",
+				"icon": "$(remove)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.undo-add",
+				"title": "Discard Changes",
+				"icon": "$(discard)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.remove",
+				"title": "Remove file",
+				"icon": "$(remove)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.undo-remove",
+				"title": "Discard Changes",
+				"icon": "$(discard)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.restore",
+				"title": "Restore",
+				"icon": "$(discard)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.merge-latest",
+				"title": "Merge with HEAD",
+				"icon": "$(cloud-download)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.force-revert",
+				"title": "Revert to HEAD",
+				"icon": "$(discard)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.openFile",
+				"title": "Open File Wilson",
+				"icon": "$(go-to-file)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.ignore-folder",
+				"title": "Ignore folder",
+				"icon": "$(x)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.checkout-folder-recursive",
+				"title": "Checkout folder (Recursive)",
+				"icon": "$(arrow-down)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.checkout-folder",
+				"title": "Checkout folder",
+				"icon": "$(cloud-download)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.discard-all",
+				"title": "Discard All Changes",
+				"icon": "$(discard)",
+				"category": "cnc-cvs"
+			},
+			{
+				"command": "cnc-cvs.merge-all",
+				"title": "Merge All Changes",
+				"icon": "$(cloud-download)",
+				"category": "cnc-cvs"
+			}
+		],
+		"menus": {
+			"scm/title":[
+				{
+					"command": "cnc-cvs.refresh",
+					"group": "navigation@3",
+					"when": "scmProvider == cvs"
+				},
+				{
+					"command": "cnc-cvs.commit",
+					"group": "navigation@1",
+					"when": "scmProvider == cvs"
+				}
+			],
+			"scm/resourceGroup/context":[
+				{
+					"command": "cnc-cvs.stage-all",
+					"group": "inline@1",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree"
+				},
+				{
+					"command": "cnc-cvs.stage-all",
+					"group": "navigation",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree"
+				},
+				{
+					"command": "cnc-cvs.unstage-all",
+					"group": "inline@2",
+					"when": "scmProvider == cvs && scmResourceGroup == stagingTree"
+				},
+				{
+					"command": "cnc-cvs.unstage-all",
+					"group": "navigation",
+					"when": "scmProvider == cvs && scmResourceGroup == stagingTree"
+				},
+				{
+					"command": "cnc-cvs.discard-all",
+					"group": "inline@1",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree"
+				},
+				{
+					"command": "cnc-cvs.discard-all",
+					"group": "navigation",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree"
+				},
+				{
+					"command": "cnc-cvs.merge-all",
+					"group": "inline@1",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree"
+				},
+				{
+					"command": "cnc-cvs.merge-all",
+					"group": "navigation",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree"
+				}
+			],
+			"scm/resourceState/context": [
+				{
+					"command": "cnc-cvs.openFile",
+					"group": "inline@1",
+					"when": "scmProvider == cvs && scmResourceState != checkout && scmResourceState != deleted && scmResourceState != removed && scmResourceState != untracked_folder && scmResourceState != directory"
+				},
+				{
+					"command": "cnc-cvs.openFile",
+					"group": "navigation",
+					"when": "scmProvider == cvs && scmResourceState != checkout && scmResourceState != deleted && scmResourceState != removed && scmResourceState != untracked_folder && scmResourceState != directory"
+				},
+				{
+					"command": "cnc-cvs.discard",
+					"group": "inline@2",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree && scmResourceState == modified"
+				},
+				{
+					"command": "cnc-cvs.discard",
+					"group": "inline@2",
+					"when": "scmProvider == cvs && scmResourceGroup == stagingTree && scmResourceState == modified"
+				},
+				{
+					"command": "cnc-cvs.add",
+					"group": "inline@2",
+					"when": "scmProvider == cvs && scmResourceGroup == untrackedTree && scmResourceState == untracked_file"
+				},
+				{
+					"command": "cnc-cvs.add-folder",
+					"group": "inline@2",
+					"when": "scmProvider == cvs && scmResourceGroup == untrackedTree && scmResourceState == untracked_folder"
+				},
+				{
+					"command": "cnc-cvs.delete",
+					"group": "inline@3",
+					"when": "scmProvider == cvs && scmResourceGroup == untrackedTree"
+				},
+				{
+					"command": "cnc-cvs.undo-add",
+					"group": "inline@2",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree && scmResourceState == added"					
+				},
+				{
+					"command": "cnc-cvs.undo-add",
+					"group": "inline@2",
+					"when": "scmProvider == cvs && scmResourceGroup == stagingTree && scmResourceState == added"					
+				},
+				{
+					"command": "cnc-cvs.remove",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree && scmResourceState == deleted"
+				},
+				{
+					"command": "cnc-cvs.restore",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree && scmResourceState == deleted"					
+				},
+				{
+					"command": "cnc-cvs.undo-remove",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree && scmResourceState == removed"					
+				},
+				{
+					"command": "cnc-cvs.undo-remove",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == stagingTree && scmResourceState == removed"					
+				},
+				{
+					"command": "cnc-cvs.merge-latest",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree && scmResourceState == merge"
+				},
+				{
+					"command": "cnc-cvs.merge-latest",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree && scmResourceState == patch"					
+				},
+				{
+					"command": "cnc-cvs.merge-latest",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree && scmResourceState == checkout"					
+				},
+				{
+					"command": "cnc-cvs.merge-latest",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree && scmResourceState == removedFromRepo"					
+				},
+				{
+					"command": "cnc-cvs.force-revert",
+					"group": "inline",
+					"when": "scmProvider == cvs && scmResourceGroup == conflictTree && scmResourceState == conflict"				
+				},
+				{
+					"command": "cnc-cvs.stage",
+					"group": "inline@3",
+					"when": "scmProvider == cvs && scmResourceGroup == changeTree"				
+				},
+				{
+					"command": "cnc-cvs.unstage",
+					"group": "inline@3",
+					"when": "scmProvider == cvs && scmResourceGroup == stagingTree"				
+				},
+				{
+					"command": "cnc-cvs.ignore-folder",
+					"group": "inline@1",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree && scmResourceState == directory"				
+				},
+				{
+					"command": "cnc-cvs.checkout-folder-recursive",
+					"group": "inline@2",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree && scmResourceState == directory"				
+				},
+				{
+					"command": "cnc-cvs.checkout-folder",
+					"group": "inline@3",
+					"when": "scmProvider == cvs && scmResourceGroup == repositoryTree && scmResourceState == directory"				
+				}					
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.69.0",
+		"@types/glob": "^7.2.0",
+		"@types/mocha": "^9.1.1",
+		"@types/node": "16.x",
+		"@typescript-eslint/eslint-plugin": "^5.30.0",
+		"@typescript-eslint/parser": "^5.30.0",
+		"eslint": "^8.18.0",
+		"glob": "^8.0.3",
+		"mocha": "^10.0.0",
+		"typescript": "^4.7.4",
+		"@vscode/test-electron": "^2.1.5"
+	}
+}
