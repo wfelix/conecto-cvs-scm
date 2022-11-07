@@ -544,7 +544,7 @@ export class CvsSourceControl implements Disposable {
       );
     } else {
       execCmd = await runCvsCmd(
-        `cvs commit -m "#${consulta} ${this.cvsScm.inputBox.value}" ${files}`,
+        `cvs commit -m "${this.cvsScm.inputBox.value}" ${files}`,
         this.workspacefolder.fsPath
       );
     }

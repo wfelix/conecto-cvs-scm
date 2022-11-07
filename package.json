@@ -15,7 +15,7 @@
         "scm",
         "cvs"
     ],
-	"publisher": "wfelix",
+	"publisher": "CNC-CVS",
 	"license": "MIT",
 	"icon": "resources/icons/cnc-cvs.png",
 	"repository": {
